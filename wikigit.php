@@ -88,13 +88,13 @@ function git_output($s) {
 		if (isset($s[0]) && $s[0] == '#')
 			$s = substr($s, 1);
 
-		$s = htmlentities($s);
-
 		// -- indents --
 		// replace with non-breaking spaces, unless tab
 		if (isset($s[0])) {
-			if ($s[0] != chr(9))
-				$s = str_replace('  ', '&nbsp;&nbsp;', $s);
+			if ($s[0] != chr(9)) {
+				$s = htmlentities($s);
+				$s = str_replace('  ', '&nbsp;&nbsp;', $s);  // do htmlentities() here, but not at tab-indented lines
+			}
 		}
 
 		echo $s.chr(10);

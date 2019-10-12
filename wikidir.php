@@ -26,6 +26,10 @@ $mdpath = $path.'/';
 if ($mdpath == '//')
 	$mdpath = '/';
 
+// -- closing parenthesis: at paths --
+// ensure that closing parenthesis are replaced with HTML entity '&$41;' at markdown PATHS since markdown utilizes ')' as the marker for the end of the URL:
+$mdpath = str_replace(')', '&#41;', $mdpath);
+
 if (!is_dir($dir)) {
 	echo '#Invalid Directory'.chr(10);
 	echo "The path supplied to 'wikidir.php':".chr(10);
@@ -101,8 +105,8 @@ foreach($files as $file) {
 		&& $file != 'serverid'
 	) {
 
-		// -- closing parenthesis --
-		// ensure that closing parenthesis are replaced with HTML entity '&$41;' at markdown links since markdown utilizes ')' as the marker for the end of the URL:
+		// -- closing parenthesis: at links --
+		// ensure that closing parenthesis are replaced with HTML entity '&$41;' at markdown LINKS since markdown utilizes ')' as the marker for the end of the URL:
 		$url = str_replace(')', '&#41;', $file);
 
 		// -- spaces to pluses --

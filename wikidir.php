@@ -105,6 +105,10 @@ foreach($files as $file) {
 		// ensure that closing parenthesis are replaced with HTML entity '&$41;' at markdown links since markdown utilizes ')' as the marker for the end of the URL:
 		$url = str_replace(')', '&#41;', $file);
 
+		// -- spaces to pluses --
+		// MDwiki wants actual spaces (whereas 'wikidir.php' accommodates pluses), so we comment this out:
+		//$mdpath = str_replace(' ', '+', $mdpath);
+
 
 		// -- markdown --
 		if ($ext == '.md') {
@@ -142,7 +146,7 @@ foreach($files as $file) {
 			echo '[**'.$file.' »**';
 			# $file = str_replace(array('&'), array('&#38;'), $file);
 			$file = str_replace(array('&'), array('*and*'), $file);  // ensure '&' passed through
-			echo '](#!/wikidir.php?path='.$mdpath.urlencode($file).')'.chr(10);
+			echo '](#!/wikidir.php?path='.str_replace(' ', '+', $mdpath).urlencode($file).')'.chr(10);  // str_replace: 'wikidir.php' accommodates pluses
 		}
 	}
 }
